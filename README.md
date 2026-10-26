@@ -59,6 +59,8 @@ the mix has not been listened to yet; treat quality as unverified.
 
 ## Build
 
+### Windows
+
 ```
 cmake -S . -B build -DSAMSH5PF_ROM_DIR=<absolute path to this repo>/roms
 cmake --build build --config Release --target samsh5pf
@@ -77,6 +79,33 @@ cmake --build build-interp --config Release --target samsh5pf
 To build with no window at all (headless-only), add
 `-DCMAKE_DISABLE_FIND_PACKAGE_SDL2=ON` to the configure step. This is also the
 way to avoid a MinGW SDL2 being picked up by an MSVC build.
+
+### Linux / Steam Deck
+
+```
+sudo apt install build-essential cmake libsdl2-dev wget
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DSAMSH5PF_ROM_DIR="$PWD/roms"
+cmake --build build --parallel "$(nproc)" --target samsh5pf
+```
+
+To build the portable AppImage in one step:
+
+```
+./scripts/build-appimage.sh /path/to/roms
+```
+
+That writes `Samsh5pf-x86_64.AppImage` in the repo root (SDL2 is bundled).
+Put your `roms/` directory next to the AppImage, or pass `--rom-path`:
+
+```
+chmod +x Samsh5pf-x86_64.AppImage
+./Samsh5pf-x86_64.AppImage
+```
+
+On a Steam Deck: copy the AppImage *and* the `roms/` folder to the Deck, mark
+the AppImage executable (`chmod +x`), and add it as a non-Steam game — it runs
+in Game Mode and Desktop Mode. The AppImage is built on Ubuntu 22.04 (glibc
+2.35), so it also runs on SteamOS 3.
 
 ## Run
 
@@ -126,6 +155,8 @@ src/game.c        ROM set definition (P/C/S/M/V layout) — the port itself
 src/main.c        player entry point
 src/recomp_main.c generator entry point
 tests/            scripted input sessions
+scripts/          Linux AppImage build
+launcher/         AppImage icon
 docs/             porting notes: ROM set, boot sequence, runtime changes
 neogeorecomp/     vendored toolkit at the commit in toolkit.ref (MIT)
 ```

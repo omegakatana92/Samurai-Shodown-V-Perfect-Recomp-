@@ -20,6 +20,9 @@ are released under the same MIT terms as the toolkit.
 
 SDL2 is not vendored here. Builds with a window link against SDL2
 (<https://www.libsdl.org/>), which is distributed under the zlib license.
+The optional `scripts/build-appimage.sh` bundles the `libSDL2-2.0.so.0`
+runtime library inside the generated AppImage; that copy remains under the
+zlib license.
 
 ## ROM data
 

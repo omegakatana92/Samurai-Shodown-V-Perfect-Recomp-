@@ -36,6 +36,9 @@ ROM layout of the set and generic hardware behaviour in the runtime.
   interrupts at recompiled-block boundaries, while Musashi checks them
   between every instruction, so a button press can land on a different game
   frame in each build.
+- The Linux x86_64/AppImage build is verified the same way: 40,336 entry
+  points, 1,352,252 native blocks and **0 uncovered entry points** over the
+  coin/start session, rendering the same scenes as the Windows build.
 
 Audio runs through the Z80/YM2610 path and produces signal (a 30-second
 scripted session captures with peak 13604, RMS 1992 at 55.5 kHz stereo), but
